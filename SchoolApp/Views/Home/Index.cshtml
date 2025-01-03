@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<!-- offset search area start -->
+<div class="offset-search">
+    <form action="#">
+        <input type="text" id="searchInput" name="searchString" placeholder="Sarch here...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- offset search area end -->
+<!-- body overlay area start -->
+<div class="body_overlay"></div>
+<!-- body overlay area end -->
+<!-- hero area start -->
+<div class="hero-area has-color">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                <div class="hero-content">
+                    <h3>Admission'20</h3>
+                    <h1 class="mb-5"><span class="primary-color">Build your Successful</span><b class="line-break"></b>Future with Edification</h1>
+                    <p class="text-white-50">Find Your Preferred Courses & Improve Your Skills</p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- hero area end -->
+<!-- about area start -->
+
+<!-- about area end -->
+<!-- course area start -->
+<div class="ptb--120" id="Announcement">
+    <div class="container" id="content-container">
+        @if (ViewBag.MostRecentAnnouncement != null)
+        {
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title title-tb text-center">
+                    <span>Whats new</span>
+                    <h2 class="primary-color">Recent Announcements</h2>
+                </div>
+            </div>       
+            <div class="row">
+                @foreach (var item in ViewBag.MostRecentAnnouncement)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card mb-5">
+                            <div class="course-thumb">
+                                
+                                    <img src="@item.ImageUrl" alt="image">
+                                
+                            </div>
+                            <div class="card-body  p-25">
+                                <div class="course-meta-title mb-4">
+                                    <div class="course-meta-text">
+                                        <h4><a href="course-details.html">@item.AnnouncementTitle</a></h4>
+                                    </div>
+                                </div>
+                                <p>@item.AnnouncementDescription</p>
+                                <ul class="course-meta-details list-inline  w-100">
+                                    <li>
+                                        <p>Date</p>
+                                        <span>@item.PostDate.ToString("yyyy-MM-dd")</span>
+                                    </li>
+                                    <li>
+                                        <p>Author</p>
+                                        <span>@item.AppUser.FirstName</span>
+                                    </li>
+                                    <li>
+                                        <p>Document</p>
+                                        <span><a href="~/@item.AnnouncementDocFile"><i class="fa fa-file" aria-hidden="true"></i></a></span>
+                                    </li>
+                                </ul>
+                                <br />
+                                <a class="btn btn-primary btn-round btn-sm" asp-controller="Home" asp-action="AnnouncementDetail"> Get More </a>
+
+                            </div><!-- card-body -->
+                        </div><!-- card -->
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title title-tb text-center">
+                    <span></span>
+                    <h2 class="primary-color">No Recent Announcement</h2>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- course area end -->
+<!-- take toure area start -->
+<!-- take toure area end -->
+<!-- course area start -->
+<div class="teacher-area pb--120" id="Project">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title title-tb text-center">
+                    <span>Top Projects </span>
+                    <h2 class="primary-color">Done By Our Students</h2>
+                </div>
+            </div>
+        </div>
+        <div class="commn-carousel owl-carousel card-deck">
+            @foreach (var item in @ViewBag.MostRecentProject)
+            {
+            <div class="card mb-5">
+                @if (@item.ImageUrl == null)
+                {
+                    <br />
+                }
+                else
+                {
+                    <img src="~/@item.ImageUrl" alt="image">
+                }
+                <div class="card-body teacher-content p-25">
+                    <h4 class="card-title mb-4"><a href="teacher-details.html">@item.ProjectTitle</a></h4>
+                    <span class="primary-color d-block mb-4">@item.ProjectArea</span>
+                    <p class="card-text">@item.ProjectDescription</p>
+                    <ul class="course-meta-details list-inline w-100">                        
+                        <li>
+                            <p>Date</p>
+                            <span>@item.DateCompleted.ToString("yyyy-MM-dd")</span>
+                        </li>
+                        <li>
+                            <p>Document</p>
+                            <span><a href="~/@item.MediaUrl"><i class="fa fa-file" aria-hidden="true"></i></a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- card -->
+            }
+<!-- card -->
+        </div>
+        <a class="btn btn-primary btn-round btn-sm align-item-center" asp-controller="Home" asp-action="ProjectDetail"> Get More </a>
+
+    </div>
+</div>
+<!-- course area end -->
+<!-- events area start -->
+<!-- events area end -->
+<!-- about area start -->
+<div class="event-area pt--120 pb--80" id="About">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-md-10 black-title offset-md-1">
+                <div class="section-title-style2 black-title text-center">
+                    <div class="section-title-style mb-4">
+                        <h2>Welcome to <b class="line-break"></b><span class="section-title-style2 primary-color mb-0">Edification</span> University</h2>
+                    </div>
+                    <p class="black-title">Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                    <a class="btn btn-primary btn-round btn-sm align-item-center" asp-controller="Home" asp-action="About"> Get More </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about area end -->
+
+<!-- cta area end -->
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get references to the elements
+        var contentContainer = document.getElementById("content-container");
+        var searchInput = document.getElementById("searchInput");
+        var filterButton = document.getElementById("filterButton");
+
+        // Function to hide the content
+        function hideContent() {
+            contentContainer.style.display = "none";
+        }
+
+        // Function to show the content
+        function showContent() {
+            contentContainer.style.display = "block";
+        }
+
+        // Add an event listener to the filter button
+        filterButton.addEventListener("click", function () {
+            var searchString = searchInput.value.toLowerCase(); // Convert to lowercase for case-insensitive search
+
+            // Perform your filtering logic here
+            // ...
+
+            // Check if filtering results in any content
+            if (/* Your filtering logic here */) {
+                showContent(); // Show content if there are results
+            } else {
+                hideContent(); // Hide content if there are no results
+            }
+        });
+    });
+</script>

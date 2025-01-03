@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SchoolApp.Models.Project>
+
+@{
+    ViewData["Title"] = "Projects";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+<div class="offset-search">
+    <form asp-controller="Student" asp-action="ProjectIndex">
+        <input type="text" name="searchString" placeholder="Sarch here...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- offset search area end -->
+<!-- body overlay area start -->
+<div class="body_overlay"></div>
+<!-- body overlay area end -->
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title title-tb">
+                    <a class="btn btn-primary btn-round btn-sm" asp-action="CreateProject">Create</a>
+                    <h2 class="primary-color">No Project Available</h2>
+                </div>
+            </div>
+        }
+        else{
+        <div class="col-md-10 offset-md-1">
+            <div class="section-title-style2 black-title title-tb">
+                <a class="btn btn-primary btn-round btn-sm" asp-action="CreateProject">Create</a>
+                <h2 class="primary-color">My Projects</h2>
+            </div>
+        </div>
+            <form asp-controller="Student" asp-action="ProjectIndex">
+                <div class="input">
+                    <select name="sortOrder">
+                        <option selected disabled>Sort By</option>
+                        <option value="ProjectTitle">Project Title</option>
+                        <option value="DateCompleted">Date Completed</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-round btn-sm" type="submit">sort</button>
+            </form>
+            <br /> <br /> <br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-5">
+                        @if (@item.ImageUrl == null)
+                        {
+                            <br />
+                        }
+                        else
+                        {
+                            <img src="~/@item.ImageUrl" alt="image">
+                        }
+                        <div class="card-body  p-25">
+                            <div class="course-meta-title mb-4">
+                                <div class="course-meta-text">
+                                    <h4><a href="course-details.html">@item.ProjectTitle</a></h4>
+                                </div>
+                            </div>
+                            <p>@item.ProjectDescription</p>
+                            <ul class="course-meta-details list-inline  w-100">
+                                <li>
+                                    <p>Date Completed</p>
+                                    <span>@item.DateCompleted</span>
+                                </li>
+                                <li>
+                                    <p>Project Area</p>
+                                    <span>@item.ProjectArea</span>
+                                </li>
+                                <li>
+                                    <p>Document</p>
+                                    <span><a href="~/@item.MediaUrl"><i class="fa fa-file" aria-hidden="true"></i></a></span>
+                                </li>
+                            </ul>
+                            <br />
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="ProjectEdit" asp-route-id="@item.ProjectId">Edit</a>
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="ProjectDelete" asp-route-id="@item.ProjectId">delete</a>
+                        </div><!-- card-body -->
+                    </div><!-- card -->
+                </div>
+            }
+        </div>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,64 @@
+﻿@model List<SchoolApp.Models.AssignmentSubmission>
+
+@{
+    ViewData["Title"] = "submissions";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+<div class="offset-search">
+    <form asp-controller="Teacher" asp-action="ListOfAssignSubmissions">
+        <input type="text" name="searchString" placeholder="Sarch here...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- offset search area end -->
+<!-- body overlay area start -->
+<div class="body_overlay"></div>
+<!-- body overlay area end -->
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        <h1>List of assignment submissions</h1>
+        <form asp-controller="Teacher" asp-action="ListOfAssignSubmissions">
+            <div class="input">
+                <select name="sortOrder">
+                    <option selected disabled>Sort By</option>
+                    <option value="FirstName">First Name</option>
+                    <option value="LastName">Last Name</option>
+                    <option value="UserName">UserName</option>
+                </select>
+            </div>
+            <button class="btn btn-primary btn-round btn-sm" type="submit">sort</button>
+        </form>
+        <br /> <br /> <br />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Submitted Date</th>
+                    <th>Submitted Text</th>
+                    <th>Submitted File</th>
+                    <th>Student Name</th>
+                    <th>Result</th>
+                    <th>Evaluation</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sub in Model)
+                {
+                    <tr>
+                        <td>@sub.SubmissionDate</td>
+                        <td>@(sub.SubmissionText != null ? sub.SubmissionText : "")</td>
+                        <td>
+                            <a href='~/@sub.SubmissionDocFile'><i class="fa fa-file" aria-hidden="true"></i></a>
+                        </td>
+                        <td>@(sub.AppUser != null ? $"{sub.AppUser.UserName} ({sub.AppUser.FirstName} {sub.AppUser.LastName})" : "")</td>
+                        <td>@sub.score</td>
+                        <td>
+                            <!-- Add an evaluation button -->
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="Evaluate" asp-route-id="@sub.SubmissionId">Evaluate</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

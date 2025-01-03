@@ -1,0 +1,83 @@
+﻿@model SchoolApp.Models.Course
+@inject ApplicationDbContext _context;
+@*@using Microsoft.AspNetCore.Identity*@
+@using Microsoft.EntityFrameworkCore;
+@using SchoolApp.Data;
+@*//@inject UserManager<AppUser> _userManager;*@
+
+@{
+    string userId = ViewBag.UserId;
+    ViewData["Title"] = "Enroll";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- comments area end -->
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        <div class="comment-area">
+            <h4 class="comment-title" style="color: red;"><span>Are you sure you want to enroll in this course?</span></h4>
+
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.CourseName)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    @if (Model.CourseName == null || Model.CourseName == "")
+                    {
+                        <h4>Empty</h4>
+                    }else
+                    {
+                    <h4> @Html.DisplayFor(model => model.CourseName)</h4>
+                    }
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.CourseDescription)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    @if (Model.CourseDescription == null || Model.CourseDescription == "")
+                    {
+                        <h4>Empty</h4>
+                    }
+                    else
+                    {
+                        <h4> @Html.DisplayFor(model => model.CourseDescription)</h4>
+                    }
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.StartDate)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4> @Html.DisplayFor(model => model.StartDate)</h4>
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.EndDate)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4>@Html.DisplayFor(model => model.EndDate)</h4>
+                </div>
+                @{
+                    var enroll = _context.Enrollments.Where(a => a.StudentId == ""+userId && a.CourseId ==  Model.CourseId).FirstOrDefault();
+                    if (enroll != null && enroll.IsEnrolled) 
+                    {
+                        <h1 style="color:red;">You are already enrolled in this course.</h1>
+                    }
+                    else
+                    {
+                        <form asp-action="EnrollInACourse">
+                            <input type="hidden" asp-for="CourseId" />
+                            <input type="submit" value="Enroll" class="btn btn-primary btn-round btn-sm" /> |
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="ListOfCourses">Back to List</a>
+                        </form>
+                    }
+                }                
+            </article>            
+        </div>
+    </div>
+</div>
+

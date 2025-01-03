@@ -1,0 +1,86 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Assignments";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+
+}
+<div class="offset-search">
+    <form asp-controller="Teacher" asp-action="AssignmentIndex">
+        <input type="text" name="searchString" placeholder="Sarch here...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- offset search area end -->
+<!-- body overlay area start -->
+<div class="body_overlay"></div>
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title title-tb">
+                    <a class="btn btn-primary btn-round btn-sm" asp-action="CreateAssignment">Create</a>
+                    <h2 class="primary-color">No Assignments Available</h2>
+                </div>
+            </div>
+        }
+        else{
+        <div class="col-md-10 offset-md-1">
+            <div class="section-title-style2 black-title title-tb">
+                <a class="btn btn-primary btn-round btn-sm" asp-action="CreateAssignment">Create</a>
+                <h2 class="primary-color">My Assignments</h2>
+            </div>
+        </div>
+            <form asp-controller="Teacher" asp-action="AssignmentIndex">
+                <div class="input">
+                    <select name="sortOrder">
+                        <option selected disabled>Sort By</option>
+                        <option value="AssignmentTitle">Assignment Title</option>
+                        <option value="Deadline">Deadline</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-round btn-sm" type="submit">sort</button>
+            </form>
+            <br /> <br /> <br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-5">
+                        <div class="card-body  p-25">
+                            <div class="course-meta-title mb-4">
+                                <div class="course-meta-text">
+                                    <h4><a href="course-details.html">@item.AssignmentTitle</a></h4>
+                                </div>
+                            </div>
+                            <p>@item.AssignmentDescription</p>
+                            <ul class="course-meta-details list-inline  w-100">
+                                <li>
+                                        <p>Deadline</p>
+                                    <span>@item.Deadline</span>
+                                </li>
+                                <li>
+                                    <p>Course Name</p>
+                                    <span>@item.CourseName</span>
+                                </li>
+                                <li>
+                                    <p>Document</p>
+                                    <span><a href="~/@item.AssignmentDocFile"><i class="fa fa-file" aria-hidden="true"></i></a></span>
+                                </li>
+                            </ul>
+                            <br />
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="AssignmentEdit" asp-route-id="@item.AssignmentId">Edit</a>
+                                <a class="btn btn-primary btn-round btn-sm" asp-action="AssignmentDelete" asp-route-id="@item.AssignmentId">delete</a>
+                            <br /><br />
+                            <a class="btn btn-primary btn-round btn-sm" asp-action="ListOfAssignSubmissions" asp-route-id="@item.AssignmentId">Submisions</a>
+
+                        </div><!-- card-body -->
+                    </div><!-- card -->
+                </div>
+            }
+        </div>
+        }
+    </div>
+</div>
+

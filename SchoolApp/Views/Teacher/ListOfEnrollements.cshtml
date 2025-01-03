@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SchoolApp.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "My Students";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+<div class="offset-search">
+    <form asp-controller="Teacher" asp-action="ListOfEnrollements">
+        <input type="text" name="searchString" placeholder="Sarch here...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- offset search area end -->
+<!-- body overlay area start -->
+<div class="body_overlay"></div>
+<!-- body overlay area end -->
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        <h1>List of enrolled students</h1>
+        <form asp-controller="Teacher" asp-action="ListOfEnrollements">
+            <div class="input">
+                <select name="sortOrder">
+                    <option selected disabled>Sort By</option>
+                    <option value="FirstName">First Name</option>
+                    <option value="LastName">Last Name</option>
+                    <option value="UserName">UserName</option>
+                </select>
+            </div>
+            <button class="btn btn-primary btn-round btn-sm" type="submit">sort</button>
+        </form>
+        <br /> <br /> <br />
+        <table class="table">
+            <thead>
+                <tr>            
+                    <th>Course Name</th>
+                    <th>Student Name</th>
+                    <th>remove Student</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td>@(course.Course != null ? course.Course.CourseName : "")</td>
+                        <td>@(course.AppUser != null ? $"{course.AppUser.UserName} ({course.AppUser.FirstName} {course.AppUser.LastName})" : "")</td>
+                        <td><a class="btn btn-primary btn-round btn-sm" asp-action="RemoveStudent" asp-route-id="@course.EnrollmentId">Remove</a></td>
+                    </tr>                   
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

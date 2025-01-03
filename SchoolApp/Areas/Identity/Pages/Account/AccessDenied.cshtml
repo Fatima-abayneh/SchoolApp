@@ -1,0 +1,15 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access denied";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="ptb--120" id="Announcement">
+        <header>
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">You do not have access to this resource.</p>
+        </header>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model SchoolApp.Models.Assignment;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        <div class="comment-area">
+            <h4 class="comment-title" style="color: red;"><span>Are you sure you want to delete this?</span></h4>
+
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.AssignmentTitle)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4> @Html.DisplayFor(model => model.AssignmentTitle)</h4>
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.AssignmentDescription)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                @if (Model.AssignmentDescription == null)
+                {
+                    <h4>Empty</h4>
+                }else
+                {
+                    <h4> @Html.DisplayFor(model => model.AssignmentDescription)</h4>
+                }
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.Deadline)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4> @Html.DisplayFor(model => model.Deadline)</h4>
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> Course Name</b>
+                </div>
+                <div class="comment-content">
+                    <h4>>@(Model.Course != null ? Model.Course.CourseName : "")</h4>
+                </div>
+            </article>
+            <article>
+                <div class="comment-thumb">
+                    <b> @Html.DisplayNameFor(model => model.AssignmentDocFile)&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    @if (Model.AssignmentDocFile == null)
+                {
+                    <h4>Empty</h4>
+                }else
+                {
+                    <h4> <span><a href="~/@Model.AssignmentDocFile"><i class="fa fa-file" aria-hidden="true"></i></a></span></h4>
+                }
+                </div>
+                <form asp-action="AssignmentDelete">
+                    <input type="hidden" asp-for="AssignmentId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a class="btn btn-primary btn-round btn-sm" asp-action="AssignmentIndex">Back to List</a>
+                </form>
+            </article>
+
+
+        </div>
+    </div>
+</div>
+

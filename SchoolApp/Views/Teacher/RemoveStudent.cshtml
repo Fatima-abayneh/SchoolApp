@@ -1,0 +1,42 @@
+﻿@model SchoolApp.Models.Enrollment;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="course-area  pt--120 pb--70">
+    <div class="container">
+        <div class="comment-area">
+            <h4 class="comment-title" style="color: red;"><span>Are you sure you want to delete this?</span></h4>
+
+            <article>
+                <div class="comment-thumb">
+                    <b> Course Name&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4>@(Model.Course != null ? Model.Course.CourseName : "")</h4>
+                </div>
+            </article>            
+            <article>
+                <div class="comment-thumb">
+                    <b> Student Name&nbsp;&nbsp;&nbsp;</b>
+                </div>
+                <div class="comment-content">
+                    <h4>@(Model.AppUser != null ? $"{Model.AppUser.UserName} ({Model.AppUser.FirstName} {Model.AppUser.LastName})" : "")</h4>
+                </div>
+            </article>
+            <br />
+            <article>               
+                <form asp-action="RemoveStudent">
+                    <input type="hidden" asp-for="EnrollmentId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a class="btn btn-primary btn-round btn-sm" asp-action="ListOfEnrollements">Back to List</a>
+                </form>
+            </article>
+        </div>
+    </div>
+</div>
+
